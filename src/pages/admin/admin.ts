@@ -104,3 +104,4 @@ interface Taxista {
   lat: number;
   lng: number;
 }
+//"app_id": "7c6b5e8e", ionic.config.json
