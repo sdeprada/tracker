@@ -19,7 +19,7 @@
 <ion-content padding>
     <ion-list>
         <ion-item>
-            <ion-label>Taxista:</ion-label>
+            <ion-label>Taxista a seguir:</ion-label>
             <ion-select [(ngModel)]="taxistaSel" (ionChange)="loadMap()">
                 <ion-option *ngFor="let taxi of taxistas" [value]="taxi.clave">{{taxi.nombre}}</ion-option>
             </ion-select>
