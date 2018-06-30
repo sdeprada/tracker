@@ -3,7 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
 import { LoginPage } from '../login/login';
 import { Subscription } from 'rxjs/Subscription';
-//import 'googlemaps';
+import { } from '@types/googlemaps';
+
 
 
 /**
@@ -13,7 +14,7 @@ import { Subscription } from 'rxjs/Subscription';
  * Ionic pages and navigation.
  */
 
-declare var google;
+//declare var google;
 
 @IonicPage()
 @Component({
