@@ -6,14 +6,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { } from '@types/googlemaps';
 
 
-
-/**
- * Generated class for the AdminPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 //declare var google;
 
 @IonicPage()
@@ -34,6 +26,7 @@ export class AdminPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminPage');
+    //con esta subscripción, esto se va a ejecutar cada vez que cambie algo de los taxistas en firebase
     this.taxistasSubs = this.usuarioProv.getTaxistas().subscribe( data => {
       console.log('Llamada a getTaxistas: ', data);
       this.taxistas = data;   
@@ -55,7 +48,7 @@ export class AdminPage {
         });
       
         
-
+        // cuando el mapa este disponible, creamos un marcador para cada taxista
         google.maps.event.addListenerOnce(this.map, 'idle', () => {
           this.taxistas.forEach(taxista => {
             console.log('Creamos un marcador para: ', taxista.nombre);
@@ -79,7 +72,7 @@ export class AdminPage {
     this.navCtrl.setRoot(LoginPage);
   }
 
-  //loadMap( taxista: { nombre: string, lat: number, lng: number, clave: string} ){
+// metodo para hacer zoom en un taxista
 loadMap() {
     let taxista;
     this.taxistas.forEach( taxi => {

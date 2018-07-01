@@ -14,8 +14,9 @@ declare var google;
 })
 export class HomePage {
 
-  map: any;
-  user: any;
+  map: google.maps.Map;
+  marker: google.maps.Marker;
+  user: Taxista;
   private subsTaxista: Subscription;
 
   constructor(public navCtrl: NavController, private ubicacionProv: UbicacionProvider, private geolocation: Geolocation, private usuarioProv: UsuarioProvider ) {
@@ -40,64 +41,38 @@ export class HomePage {
   
 
   initMap() {
-    let mapEle: HTMLElement = document.getElementById('map');
-    console.log('mapEle:', mapEle);
-    console.log('taxista', this.user);
+    console.log('initMap: está creado el mapa y el marcador?', this.map, this.marker);
     
-    //let uluru = {lat: -25.344, lng: 131.036};
-    // The map, centered at Uluru
-    this.map = new google.maps.Map(
-      mapEle, {zoom: 12, center: this.user});
-    // The marker, positioned at Uluru
-    let marker = new google.maps.Marker({position: this.user, map: this.map,
-      title: 'Tu posición'});
-
-      var infowindow = new google.maps.InfoWindow({
-        content: 'Sergio'
-      });
-    
-     
-      marker.addListener('click', function() {
-        infowindow.open(this.map, marker);
-      });
-  }
-
-  getPosition():any{
-    this.geolocation.getCurrentPosition().then(response => {
-      this.loadMap(response);
-    })
-    .catch(error =>{
-      console.log(error);
-    })
-  }
-
-  loadMap(position: Geoposition){
-    let latitude = position.coords.latitude;
-    let longitude = position.coords.longitude;
-    console.log('loadMap', latitude, longitude);
-    
-    // create a new map by passing HTMLElement
-    let mapEle: HTMLElement = document.getElementById('map');
-    console.log(mapEle);
-    
+    if ( !this.map || !this.marker ) {
+      let mapEle: HTMLElement = document.getElementById('map');
+      console.log('taxista: ', this.user);
+      
+      this.map = new google.maps.Map(
+        mapEle, {zoom: 14, center: this.user});
   
-    // create LatLng object
-    let myLatLng = {lat: latitude, lng: longitude};
-  
-    // create map
-    this.map = new google.maps.Map(mapEle, {
-      center: myLatLng,
-      zoom: 12
-    });
-  
-    google.maps.event.addListenerOnce(this.map, 'idle', () => {
-      let marker = new google.maps.Marker({
-        position: myLatLng,
-        map: this.map,
-        title: 'Hello World!'
+      this.marker = new google.maps.Marker({position: this.user, map: this.map,
+        title: this.user.nombre});
+      
+      // código por si quiero añadir un marcador
+      let infowindow = new google.maps.InfoWindow({
+        content: '<ion-badge item-end>'+ this.user.nombre+'</ion-badge>'
       });
-      //mapEle.classList.add('show-map');
-    }); 
+      
+       
+      this.marker.addListener('click', function() {
+        infowindow.open(this.map, this.marker);
+      });
+    } else {
+      // Si el mapa ya existe, lo único que hago es actualizar la posición del marcador
+      console.log('El mapa ya existe, actualizo la posición del marcador');
+      this.marker.setPosition(this.user);
+      this.map.setCenter( this.user );
+    }
+
+    
+
+    
+    
   }
 
   salir() {
@@ -116,4 +91,11 @@ export class HomePage {
 
   }
 
+}
+
+interface Taxista {
+  nombre: string;
+  clave: string;
+  lat: number;
+  lng: number;
 }

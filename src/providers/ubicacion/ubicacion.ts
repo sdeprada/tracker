@@ -30,12 +30,14 @@ export class UbicacionProvider {
 
   initGeolocalizacion() {
     this.geolocation.getCurrentPosition().then((resp) => {
+      //obtengo la posición actual, y actualizo en firebase las coordenadas
       console.log('initGeolocalizacion: ', resp);
       this.taxista.update({
         lat: resp.coords.latitude,
         lng: resp.coords.longitude,
         clave: this.usuarioProv.clave
       });
+      //con la siguiente subscripción estoy escuchando si hay cambios en la geolocalización
       this.watchTaxista = this.geolocation.watchPosition().subscribe((data) => {
          // data can be a set of coordinates, or an error (if an error occurred).
          // data.coords.latitude
