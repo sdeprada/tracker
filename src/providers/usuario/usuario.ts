@@ -6,12 +6,7 @@ import { Platform } from 'ionic-angular';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 
-/*
-  Generated class for the UsuarioProvider provider.
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class UsuarioProvider {
   clave: string;
@@ -94,7 +89,7 @@ export class UsuarioProvider {
     try {
       this.usuarioSubs.unsubscribe();
     } catch (error) {
-      console.error('Error al unsubscribe usuario', JSON.stringify(error));
+      console.error('Error al unsubscribe usuario', error);
       
     }
   }

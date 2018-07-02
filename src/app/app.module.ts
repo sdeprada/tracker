@@ -17,6 +17,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { Geolocation } from '@ionic-native/geolocation';
 import { UbicacionProvider } from '../providers/ubicacion/ubicacion';
 import { AdminPage } from '../pages/admin/admin';
+import { BackgroundGeolocation } from '@ionic-native/background-geolocation'; 
+import { BackgroundMode } from '@ionic-native/background-mode';
 
 
 @NgModule({
@@ -32,6 +34,7 @@ import { AdminPage } from '../pages/admin/admin';
     AngularFireModule.initializeApp(firebaseConf),
     AngularFirestoreModule,
     IonicStorageModule.forRoot()
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -46,7 +49,9 @@ import { AdminPage } from '../pages/admin/admin';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UsuarioProvider,
     Geolocation,
-    UbicacionProvider
+    UbicacionProvider,
+    BackgroundGeolocation,
+    BackgroundMode
   ]
 })
 export class AppModule {}

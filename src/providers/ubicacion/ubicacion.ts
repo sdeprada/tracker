@@ -23,7 +23,7 @@ export class UbicacionProvider {
   }
 
   getTaxista() {
-    console.log('getTaxista()');
+    console.log('getTaxista():', this.usuarioProv.clave);
     
     this.taxista = this.afDB.doc(`/usuarios/${this.usuarioProv.clave}`);
   }
@@ -38,6 +38,7 @@ export class UbicacionProvider {
         clave: this.usuarioProv.clave
       });
       //con la siguiente subscripción estoy escuchando si hay cambios en la geolocalización
+      //puedo poner las opciones en el watchPosition({enableHighAccuracy: true})
       this.watchTaxista = this.geolocation.watchPosition().subscribe((data) => {
          // data can be a set of coordinates, or an error (if an error occurred).
          // data.coords.latitude
